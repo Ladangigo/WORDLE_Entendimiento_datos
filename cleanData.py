@@ -26,6 +26,8 @@ def CleanData(namefile):
     #6. Se eliminan palabras con una longitud menor a 3
     #Una vez realizado todo este proceso de limpieza de datos, se crea una carpeta la cual 
     # contendrá cada uno de los archivos aquí procesados
+    #La función retorna una lista que contiene las palabras válidas para ser parte del 
+    # banco de palabras de cada .txt
 
     
     with open(namefile, 'r',encoding="utf8") as raw_file:
@@ -99,3 +101,17 @@ def CleanData(namefile):
          f.write(' '.join(clean_file))
     
     return clean_file
+
+
+
+files_list = os.listdir("raw_texts/")
+
+for file in files_list:
+    Data = CleanData('raw_texts/'+ file)
+    dic_files[file]= Data
+    resume_file = resume_file + Data
+    final_resume_file = list(OrderedDict.fromkeys(resume_file))#Se une cada archivo procedado en una lista
+    
+    
+with open('final_resume_file.txt', 'w', encoding="utf8" ) as f:
+         f.write(' '.join(final_resume_file)) #Se une cada archivo procedado en un solo .txt
