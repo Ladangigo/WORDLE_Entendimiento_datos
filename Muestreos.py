@@ -16,3 +16,6 @@ for archivo in lista_de_archivos:
         MuestreoDatos.append(MuestreoDato)
         
 print(MuestreoDatos)
+
+with open('uniondearchivos.txt', 'w', encoding='utf8') as f:
+    f.write(''.join(Archivos)) #Se unen todos los archivos en uno solo
