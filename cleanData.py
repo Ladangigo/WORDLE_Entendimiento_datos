@@ -48,15 +48,14 @@ def CleanData(namefile):
     file_lowercase = delete_uppcase2.lower()
    
     #cambio acentos
-    text_without_digits = re.sub(r"á","a", file_lowercase)
-    texte = re.sub(r"é","e", text_without_digits)
-    texti = re.sub(r"í","i", texte)
-    texto = re.sub(r"ó","o", texti)
-    textu = re.sub(r"ú","u", texto)
+    vowels = ((r'á','a'),(r'é','e'),(r'í','i'),(r'ó','o'),(r'ú','u'))
+    for i in vowels:
+        file_lowercase = re.sub(i[0],i[1], file_lowercase)
+
 
     #Solo letras
     file_without_numbers = [ ]
-    file_without_numbers = re.findall(r'[aA-zZÑñ]+', textu)
+    file_without_numbers = re.findall(r'[aA-zZÑñ]+', file_lowercase)
       
     #Eliminar duplicados
     file_without_duplicates = [ ]
