@@ -63,6 +63,12 @@ def change_all_accents(file):
     for i in letters_with_accents:
       file = re.sub(i[0],i[1], file)
     return file
+
+def delete_umlaut(file):
+    file_delete_umlaut = [ ]
+    file_delete_umlaut = re.sub(r'\w+[äëöüïýść]\w+','', file)
+    file_delete_umlaut = re.sub(r'[äëöüïýść]\w+','', file_delete_umlaut)
+    return file_delete_umlaut
     
 def filter_only_letters(file):
     file_without_numbers = [ ]
@@ -150,7 +156,7 @@ delete_words_less_than_four_with_accents = delete_words(remove_stopwords_with_ac
 total_words_with_accents = len(delete_words_less_than_four_with_accents)
 print (f"Al cambiar todos las letras que tienen acentos por sus homólogos se cuenta con un total de {total_words_with_accents} palabras")
 
-
+# Proceso de limpieza caso 1: Se eliminan las palabras con diaresis y tildes en las consonantes desde el inicio de la limpieza
 
 
 
