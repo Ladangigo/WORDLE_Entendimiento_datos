@@ -22,7 +22,8 @@ def CleanData(namefile):
     #3. Se cambian vocales con tíldes por sus homólogos sin estas
     #4. Se eliminan los dígitos númericos y otros acentos 
     #5. Se eliminan palabras duplicadas 
-    #6. Se eliminan palabras con una longitud menor a 3
+    #6. Se eliminan las stop worsd
+    #7. Se eliminan palabras con una longitud menor a 3
     #Una vez realizado todo este proceso de limpieza de datos, se crea una carpeta la cual 
     # contendrá cada uno de los archivos aquí procesados
     #La función retorna una lista que contiene las palabras válidas para ser parte del 
