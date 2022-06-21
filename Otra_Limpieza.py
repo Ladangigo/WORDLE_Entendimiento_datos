@@ -64,7 +64,7 @@ def filter_only_letters(file):
     
 def delete_stopwords(file):
     file_without_stopwords = [ ]
-    for item in file_without_duplicates:
+    for item in file:
       if not item in stop_words:
         file_without_stopwords.append(item)
     return file_without_stopwords
@@ -79,13 +79,35 @@ def delete_words(file):
     return clean_file
     
 
+def convert_uppercase_to_lowercase(file):
+    file_lowercase = [ ]
+    file_lowercase = file.lower() # convertir mayus en minusculas
+    return file_lowercase
+    
+def remove_duplicates(file):
+    file_without_duplicates = [ ]
+    file_without_duplicates = list(OrderedDict.fromkeys(file)) 
+    return file_without_duplicates
+    
+
+#Proceso de limpieza
+
+remove_characters = delete_symbols(raw_file_join)
+del_uppcase = delete_uppcase(remove_characters)
+change_letters_to_lowercase = convert_uppercase_to_lowercase(del_uppcase)
+change_accentsvowels = change_accents(change_letters_to_lowercase)
+only_letters = filter_only_letters(change_accentsvowels)
+delete_duplicates = remove_duplicates(only_letters)
+remove_stopwords = delete_stopwords(delete_duplicates)
+delete_words_less_than_four = delete_words(remove_stopwords)
+
+#Recopilación de datos para un posterior analisis estadistico 
+Total_palabras = len(delete_words_less_than_four)
+print (f"Se cuenta con un total de {Total_palabras} palabras")
 
 
-file_lowercase = file.lower() # convertir mayus en minusculas
 
 
-file_without_duplicates = [ ]
-file_without_duplicates = list(OrderedDict.fromkeys(file_without_numbers)) 
 
 
 
