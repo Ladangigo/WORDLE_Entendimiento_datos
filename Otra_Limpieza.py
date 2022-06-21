@@ -62,55 +62,35 @@ def filter_only_letters(file):
     return file_without_numbers
     
     
+def delete_stopwords(file):
+    file_without_stopwords = [ ]
+    for item in file_without_duplicates:
+      if not item in stop_words:
+        file_without_stopwords.append(item)
+    return file_without_stopwords
+    
 
-
-
-
-
+def delete_words(file):
+    clean_file=file.copy()
+    word= None
+    for word in file:
+      if len(word)<4:
+        clean_file.remove(word) 
+    return clean_file
+    
 
 
 
 file_lowercase = file.lower() # convertir mayus en minusculas
 
-#-----------------------Eliminar duplicados------------------------------
-file_without_duplicates = [ ]
 
-#Para la limpieza según los lineamientos de limpieza
+file_without_duplicates = [ ]
 file_without_duplicates = list(OrderedDict.fromkeys(file_without_numbers)) 
 
-# Para la limpieza cambiando todas las letras con los diferentes tipos de acentos por sus homólogos 
-file_without_duplicates_changing_accents = list(OrderedDict.fromkeys(file_without_numbers_changing_accents)) 
 
-#---------------------Elimino stopwprds-------------------------------
-file_without_stopwords = []
-file_without_stopwords_changing_accents = []
 
-#Para la limpieza según los lineamientos de limpieza
-item = None
-for item in file_without_duplicates:
-  if not item in stop_words:
-    file_without_stopwords.append(item)
 
-# Para la limpieza cambiando todas las letras con los diferentes tipos de acentos por sus homólogos 
-item = None
-for item in file_without_duplicates_changing_accents:
-  if not item in stop_words:
-    file_without_stopwords_changing_accents.append(item)
 
-#---------------------Eliminar palabras con longitud menores a 4 letras ----------------------
-#Para la limpieza según los lineamientos de limpieza
-clean_file=file_without_stopwords.copy()
-word= None
-for word in file_without_stopwords:
-  if len(word)<4:
-    clean_file.remove(word)  
-
-# Para la limpieza cambiando todas las letras con los diferentes tipos de acentos por sus homólogos
-clean_filechanging_accents=file_without_stopwords_changing_accents.copy()
-word= None
-for word in file_without_stopwords_changing_accents:
-  if len(word)<4:
-    clean_filechanging_accents.remove(word)  
 
 
 
