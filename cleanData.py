@@ -17,10 +17,11 @@ def CleanData(namefile):
     #namefile ---> ruta del archivo al cual se realizá el proceso de limpieza
     # CleanData: Hace un proceso de limpieza a cada uno de los archivos que estan en la carpeta "raw_texts/" 
     # que consisite en los siguientes pasos:
+
     #1.Elimina todos los carácteres o síbolos
-    #2. 
-    #3.Se eliminan los dígitos númericos 
-    #4. Se eliminan siglas, numeros romános y palabra que contengan mas de dos letras en mayúsculas
+    #2. Se eliminan palabras con mas de dos mayúsculas
+    #3. Se cambian vocales con tíldes por sus homólogos sin estas
+    #4. Se eliminan los dígitos númericos 
     #5. Se eliminan palabras duplicadas 
     #6. Se eliminan palabras con una longitud menor a 3
     #Una vez realizado todo este proceso de limpieza de datos, se crea una carpeta la cual 
@@ -43,13 +44,16 @@ def CleanData(namefile):
     delete_uppcase2 = re.sub(r'[A-Z]{2,}','',delete_uppcase1)
         
     
-    
-                                
-    #convierto la lista en un srt
-    file_without_uppercase_str = " ".join(file_without_uppercase)
-    
-    #cambia todo a minúsculas 
-    file_lowercase = file_without_uppercase_str.lower()  
+     #cambia todo a minúsculas 
+    file_lowercase = delete_uppcase2.lower()
+   
+    #cambio acentos
+    text_without_digits = re.sub(r"á","a", file_lowercase)
+    texte = re.sub(r"é","e", text_without_digits)
+    texti = re.sub(r"í","i", texte)
+    texto = re.sub(r"ó","o", texti)
+    textu = re.sub(r"ú","u", texto)
+
 
     file_with_stopwords = re.findall(r'[aA-zZñÑ]+', file_lowercase)
       
