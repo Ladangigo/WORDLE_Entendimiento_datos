@@ -32,37 +32,18 @@ def CleanData(namefile):
     with open(namefile, 'r',encoding="utf8") as raw_file:
         original_file = raw_file.read()
         
-
-    
-
     
     #Eliminar símbolos
     symbols = ['¿','?','~','`','!','¡','@','#','$','%','^','*','(',')','_','-','+','=','{','}','[',']','\\',':',';','<','>','/', '.', ',','&','\r','\t', '|', '“', '"', '–', '”', '©', '-', '—','…', ';', '‘','’']
     for char in symbols:
-        unaccented_file = unaccented_file.replace(char,' ')
-        
-    #Elimino los digitos numericos 
-    file_without_numbers = re.findall(r'[aA-zZÑñ]+', unaccented_file)    
-    
-    #Elimino siglas y números romanos
-    file_uppercase = [word for word in file_without_numbers if word.isupper()]
-    file_without_acronym = []
-    
-    for position in file_without_numbers:
-        if position not in file_uppercase:
-            file_without_acronym.append(position)
-                      
+        original_file = original_file.replace(char,' ')
 
-    #Elimino palabras que contengan mas de dos letras en mayusculas 
-    cont = 0    
-    for term in file_without_acronym:
-        cont = 0
-        for let in term:
-            if let.isupper(): cont +=1
-            if cont == 2: file_with_uppercase.append(term)
+    #Elimino las palabras que contengan mas de dos mayúsculas
+    delete_uppcase1 = re.sub(r'([A-Z]\w+[A-Z]\w+)',"", original_file)
+    delete_uppcase2 = re.sub(r'[A-Z]{2,}','',delete_uppcase1)
+        
     
-    for con in file_without_acronym:
-        if con not in file_with_uppercase: file_without_uppercase.append(con)
+    
                                 
     #convierto la lista en un srt
     file_without_uppercase_str = " ".join(file_without_uppercase)
