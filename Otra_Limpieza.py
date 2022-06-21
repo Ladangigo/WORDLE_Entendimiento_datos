@@ -35,12 +35,10 @@ with open('uniondearchivos.txt', 'r', encoding='utf8') as file: #Se abre el arch
      
     
 
-def delete_symbols(file):
-    
+def delete_symbols(file):    
     symbols = ['¿','?','~','`','!','¡','@','#','$','%','^','*','(',')','_','-','+','=','{','}','[',']','\\',':',';','<','>','/', '.', ',','&','\r','\t','\n', '|', '“', '"', '–', '”', '©', '-', '—','…', ';', '‘','’',"'",'\xa0']
     for char in symbols:
-      file = file.replace(char,' ')
-      
+      file = file.replace(char,' ')      
     return file
     
 
@@ -49,39 +47,31 @@ def delete_uppcase(file):
     delete_uppcase2 = re.sub(r'[A-Z]{2,}','',delete_uppcase1)  
     return delete_uppcase2
 
-
-   
-
-#cambia todo a minúsculas 
-file_lowercase = delete_uppcase2.lower() 
-
-#cambio acentos
-text_without_digits = re.sub(r"á","a", file_lowercase)
-texte = re.sub(r"é","e", text_without_digits)
-texti = re.sub(r"í","i", texte)
-texto = re.sub(r"ó","o", texti)
-textu = re.sub(r"ú","u", texto)
-#Se cambian todos los acentos diferentes a las tildes por sus homólogos 
-textoa1 = re.sub(r"ä","a", textu)
-textoe1 = re.sub(r"ë","e", textoa1)
-textoi1 = re.sub(r"ï","i", textoe1)
-textoo1 = re.sub(r"ö","o", textoi1)
-textou1 = re.sub(r"ü","u", textoo1)
-textoy = re.sub(r"ý","y", textou1)
-textos = re.sub(r"ś","s", textoy)
-textoc = re.sub(r"ć","c", textos)
-
-
-#----------------------Solo letras----------------------------------
-file_without_numbers = [ ]
-file_without_numbers_changing_accents = [ ]
-
-#Para la limpieza según los lineamientos de limpieza
-file_without_numbers = re.findall(r'[aA-zZÑñ]+', textu)
-
-# Para la limpieza cambiando todas las letras con los diferentes tipos de acentos por sus homólogos
-file_without_numbers_changing_accents = re.findall(r'[aA-zZÑñ]+', textoc)  
     
+def change_accents(file):
+    vowels = ((r'á','a'),(r'é','e'),(r'í','i'),(r'ó','o'),(r'ú','u'))
+
+    for i in vowels:
+      file = re.sub(i[0],i[1], file)
+    return file
+    
+    
+def filter_only_letters(file):
+    file_without_numbers = [ ]
+    file_without_numbers = re.findall(r'[aA-zZÑñ]+', file)
+    return file_without_numbers
+    
+    
+
+
+
+
+
+
+
+
+file_lowercase = file.lower() # convertir mayus en minusculas
+
 #-----------------------Eliminar duplicados------------------------------
 file_without_duplicates = [ ]
 
