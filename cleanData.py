@@ -1,6 +1,5 @@
 #Se importan las librerías
 import re
-import unidecode 
 from collections import OrderedDict
 import nltk
 from nltk.corpus import stopwords
@@ -18,8 +17,8 @@ def CleanData(namefile):
     #namefile ---> ruta del archivo al cual se realizá el proceso de limpieza
     # CleanData: Hace un proceso de limpieza a cada uno de los archivos que estan en la carpeta "raw_texts/" 
     # que consisite en los siguientes pasos:
-    #1. Se quitan los acentos
-    #2.Elimina todos los carácteres o síbolos 
+    #1.Elimina todos los carácteres o síbolos
+    #2. 
     #3.Se eliminan los dígitos númericos 
     #4. Se eliminan siglas, numeros romános y palabra que contengan mas de dos letras en mayúsculas
     #5. Se eliminan palabras duplicadas 
@@ -33,8 +32,7 @@ def CleanData(namefile):
     with open(namefile, 'r',encoding="utf8") as raw_file:
         original_file = raw_file.read()
         
-    unaccented_file = unidecode.unidecode(''.join([i if i!='ñ' else '+' for i in original_file]))
-    unaccented_file = ''.join(['ñ' if i=='+' else i for i in unaccented_file])
+
     
 
     
