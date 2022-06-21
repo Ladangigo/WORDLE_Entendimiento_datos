@@ -55,6 +55,14 @@ def change_accents(file):
       file = re.sub(i[0],i[1], file)
     return file
     
+def change_all_accents(file):
+    letters_with_accents = ((r'á','a'),(r'é','e'),(r'í','i'),(r'ó','o'),(r'ú','u'),
+              (r'ä','a'),(r'ë','e'),(r'ï','i'),(r'ö','o'),(r'ü','u'),
+              (r'ý','y'),(r'ś','s'),(r'ć','c'))
+
+    for i in letters_with_accents:
+      file = re.sub(i[0],i[1], file)
+    return file
     
 def filter_only_letters(file):
     file_without_numbers = [ ]
@@ -90,24 +98,57 @@ def remove_duplicates(file):
     return file_without_duplicates
     
 
-#Proceso de limpieza
+#Proceso de limpieza estipulada por el cliente
 
+# 1. Se eliminan caracteres
 remove_characters = delete_symbols(raw_file_join)
+
+# 2. Se eliminan palabras con mas de 2 letras en mayúsculas
 del_uppcase = delete_uppcase(remove_characters)
+
+# 3. Se pasa todo de mayúsculas a minúsculas
 change_letters_to_lowercase = convert_uppercase_to_lowercase(del_uppcase)
+
+# 4. Se cambian las vocales con tíldes por sus homólogas sin ellas
 change_accentsvowels = change_accents(change_letters_to_lowercase)
+
+# 5. Se eliminan numeros y otros caracteres, quedando solo letras
 only_letters = filter_only_letters(change_accentsvowels)
+
+# 6. Se eliminan duplciados
 delete_duplicates = remove_duplicates(only_letters)
+
+# 7. Se eliminan las stop words
 remove_stopwords = delete_stopwords(delete_duplicates)
+
+# 8. se eliminan las palabras que tengan menos de 4 letras
 delete_words_less_than_four = delete_words(remove_stopwords)
 
-#Recopilación de datos para un posterior analisis estadistico 
-Total_palabras = len(delete_words_less_than_four)
-print (f"Se cuenta con un total de {Total_palabras} palabras")
+#Información sobre el total de palabras del banco 
+total_words = len(delete_words_less_than_four)
+print (f"Se cuenta con un total de {total_words} palabras")
 
 
+# Proceso de limpieza caso 1: Se reemplazan todas las letras con acentos por sus homólogos sin ellas
 
+# 4. Se cambian todos los acentos
+change_accentsletters = change_all_accents(change_letters_to_lowercase)
 
+# 5. Se eliminan numeros y otros caracteres, quedando solo letras
+only_letters_with_accents = filter_only_letters(change_accentsletters)
+
+# 6. Se eliminan duplciados
+delete_duplicates_with_accents = remove_duplicates(only_letters_with_accents)
+
+# 7. Se eliminan las stop words
+remove_stopwords_with_accents = delete_stopwords(delete_duplicates_with_accents)
+
+# 8. se eliminan las palabras que tengan menos de 4 letras
+delete_words_less_than_four_with_accents = delete_words(remove_stopwords_with_accents)
+
+#Información sobre el total de palabras del banco con el cambio realizado
+total_words_with_accents = len(delete_words_less_than_four_with_accents)
+print (f"Al cambiar todos las letras que tienen acentos por sus homólogos se cuenta con un total de {total_words_with_accents} palabras")
 
 
 
