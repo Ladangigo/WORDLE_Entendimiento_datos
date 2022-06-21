@@ -158,7 +158,27 @@ print (f"Al cambiar todos las letras que tienen acentos por sus homólogos se cu
 
 # Proceso de limpieza caso 1: Se eliminan las palabras con diaresis y tildes en las consonantes desde el inicio de la limpieza
 
+# 4. Se eliminan las palabras con acentos que no pertenecen al español
+words_without_umlaut = delete_umlaut(change_letters_to_lowercase)
 
+# 5. Se cambian las vocales con tíldes por sus homólogas sin ellas
+change_accentsvowels_without_umlaut = change_accents(words_without_umlaut)
+
+# 6. Se eliminan numeros y otros caracteres, quedando solo letras
+only_letters_without_umlaut = filter_only_letters(change_accentsvowels_without_umlaut)
+
+# 7. Se eliminan duplciados
+delete_duplicates_without_umlaut = remove_duplicates(only_letters_without_umlaut)
+
+# 8. Se eliminan las stop words
+remove_stopwords_without_umlaut = delete_stopwords(delete_duplicates_without_umlaut)
+
+# 9. se eliminan las palabras que tengan menos de 4 letras
+delete_words_less_than_four_without_umlaut = delete_words(remove_stopwords_without_umlaut)
+
+#Información sobre el total de palabras del banco 
+total_words_without_umlaut = len(delete_words_less_than_four_without_umlaut)
+print (f"Al eliminar las palabras con diaresis y consonantes con tildes, se cuenta con un total de {total_words_without_umlaut} palabras")
 
 
 
