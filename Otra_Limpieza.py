@@ -35,14 +35,22 @@ with open('uniondearchivos.txt', 'r', encoding='utf8') as file: #Se abre el arch
      
     
 
-symbols = ['¿','?','~','`','!','¡','@','#','$','%','^','*','(',')','_','-','+','=','{','}','[',']','\\',':',';','<','>','/', '.', ',','&','\r','\t','\n', '|', '“', '"', '–', '”', '©', '-', '—','…', ';', '‘','’',"'",'\xa0']
-for char in symbols:
-  raw_file_join = raw_file_join.replace(char,' ')
+def delete_symbols(file):
+    
+    symbols = ['¿','?','~','`','!','¡','@','#','$','%','^','*','(',')','_','-','+','=','{','}','[',']','\\',':',';','<','>','/', '.', ',','&','\r','\t','\n', '|', '“', '"', '–', '”', '©', '-', '—','…', ';', '‘','’',"'",'\xa0']
+    for char in symbols:
+      file = file.replace(char,' ')
+      
+    return file
+    
+
+def delete_uppcase(file):
+    delete_uppcase1 = re.sub(r'([A-Z]\w+[A-Z]\w+)',"", file)
+    delete_uppcase2 = re.sub(r'[A-Z]{2,}','',delete_uppcase1)  
+    return delete_uppcase2
 
 
-#Elimino las palabras que contengan mas de dos mayúsculas
-delete_uppcase1 = re.sub(r'([A-Z]\w+[A-Z]\w+)',"", raw_file_join)
-delete_uppcase2 = re.sub(r'[A-Z]{2,}','',delete_uppcase1)   
+   
 
 #cambia todo a minúsculas 
 file_lowercase = delete_uppcase2.lower() 
