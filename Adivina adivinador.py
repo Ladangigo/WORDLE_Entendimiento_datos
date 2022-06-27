@@ -42,7 +42,10 @@ class Select_words():
     pass
 
 class Game():
-    pass
+    
+    def __init__(self,database):
+        self.choose_words = Update_words(APIget_response_length, APIget_number_vowels, database)
+    
 
 class Sistem():
     
@@ -69,4 +72,7 @@ class Sistem():
           dictToDF_wordInfo['Longitud'].append(length)
         
         self.DF_wordInfo = pd.DataFrame(dictToDF_wordInfo)
+        
+    def configure_game(self):
+        self.game = Game(self.DF_wordInfo)
 
