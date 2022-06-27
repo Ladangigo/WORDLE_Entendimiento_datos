@@ -66,8 +66,9 @@ def change_all_accents(file):
 
 def delete_umlaut(file):
     file_delete_umlaut = [ ]
-    file_delete_umlaut = re.sub(r'\w+[äëöüïýść]\w+','', file)
-    file_delete_umlaut = re.sub(r'[äëöüïýść]\w+','', file_delete_umlaut)
+    file_delete_umlaut = re.sub(r'\w+[äëöüïýśšć]\w+','', file)
+    file_delete_umlaut = re.sub(r'[äëöüïýśšć]\w+','', file_delete_umlaut)
+    file_delete_umlaut = re.sub(r'\w+[äëöüïýśšć]','', file_delete_umlaut)
     return file_delete_umlaut
     
 def filter_only_letters(file):
@@ -179,6 +180,7 @@ delete_words_less_than_four_without_umlaut = delete_words(remove_stopwords_witho
 #Información sobre el total de palabras del banco 
 total_words_without_umlaut = len(delete_words_less_than_four_without_umlaut)
 print (f"Al eliminar las palabras con diaresis y consonantes con tildes, se cuenta con un total de {total_words_without_umlaut} palabras")
+
 
 
 
