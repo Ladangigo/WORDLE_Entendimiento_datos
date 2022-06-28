@@ -6,6 +6,7 @@ Created on Mon Jun 27 13:35:06 2022
 """
 import pandas as pd
 import numpy as np
+import requests
 
 class Update_words():
             
@@ -17,7 +18,7 @@ class Update_words():
         self.filter_words_according_APIget()
  
     def filter_words_according_APIget (self):
-          self.words_game = self.database.loc[np.logical_and(self.database['longitud'] == int(self.APIget_response_length),
+          self.words_game = self.database.loc[np.logical_and(self.database['Longitud'] == int(self.APIget_response_length),
                                                              self.database['Vocal'] == int(self.APIget_number_vowels))]
           
           
@@ -44,17 +45,31 @@ class Select_words():
 class Game():
     
     def __init__(self,database):
-        self.choose_words = Update_words(APIget_response_length, APIget_number_vowels, database)
+        self.getAPI_communication()
+
+        
+        self.choose_words = Update_words(self.word_length, self.number_vowels, database)
+        
+    def getAPI_communication(self):
+        response = requests.get('http://localhost:5000/getword')
+        dictionary = response.json()
+        print(dictionary, type(dictionary))
+        self.word_length = dictionary['Longitud']
+        self.number_vowels = dictionary['Cant Vocales']
     
 
 class Sistem():
     
-    def __init__(self, route):
-        self.route = route
+    def __init__(self):
+       
+        self.open_file()
+        self.position_vowels_cons()
         
-    def open_file(self, route):
+        
+        
+    def open_file(self):
         self.words_bank = [ ]
-        with open(route, 'r', encoding='utf8') as words:
+        with open("final_cleanLaura.txt", 'r', encoding='utf8') as words:
               word_bank = words.read()
         self.words_bank = word_bank.split(' ')
         
@@ -76,3 +91,8 @@ class Sistem():
     def configure_game(self):
         self.game = Game(self.DF_wordInfo)
 
+
+a = Sistem()
+
+a.configure_game()
+#a.game.choose_words.words_game
